@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Better Table</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/bettertable.css">
+    <script src="js/bettertable.js"></script>
+  </head>
+  <body>
+    <div class="p-3">
+      <h1>Better Table</h1>
+      <h3>By Ryan Bonomo</h3>
+      <div class="example-table-container" id="betterTable1"></div>
+    </div>
+    <script>
+      var tableData = [
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+        ['Ryan', 'Bonomo', 'rbonomo'],
+      ];
+      var tableHeaders = ['First', 'Last', 'Handle'];
+      var betterTableContainerElement = $('#betterTable1');
+
+      var betterTable1 = new BetterTable(betterTableContainerElement, tableHeaders, tableData);
+    </script>
+  </body>
+</html>

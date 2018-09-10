@@ -1,0 +1,16 @@
+{
+  "name": "bootstrap-4-table-fixed-header",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "./node_modules/.bin/http-server -a localhost -p 8000 -c-1",
+    "build-css": "node-sass --include-path scss scss/ -o css/",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\""
+  },
+  "author": "Ryan Bonomo",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  }
+}
