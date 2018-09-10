@@ -62,10 +62,15 @@ FixedHeader.prototype.initialize = function() {
 
   setTimeout(function() {
     this.update();
+    this.containerElement.height(this.rootElement.height());
     this.rootElement.css('visibility', 'visible');
-  }.bind(this), 10);
+  }.bind(this), 50);
 
-  $(window).resize(this.update.bind(this));
+  $(window).resize(function() {
+    setTimeout(function() {
+      this.update();
+    }.bind(this), 50);
+  }.bind(this));
 }
 
 FixedHeader.prototype.update = function() {

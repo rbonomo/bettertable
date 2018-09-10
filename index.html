@@ -13,7 +13,17 @@
     <div class="p-3">
       <h1>Better Table</h1>
       <h3>By Ryan Bonomo</h3>
-      <div class="example-table-container" id="betterTable1"></div>
+      <div class="examples">
+        <div class="example-item">
+          <div class="example-table-container" id="betterTable1"></div>
+        </div>
+        <div class="example-item">
+          <div class="example-table-container" id="betterTable2"></div>
+        </div>
+        <div class="example-item">
+          <div class="example-table-container" id="betterTable3"></div>
+        </div>
+      </div>
     </div>
     <script>
       var tableData = [
@@ -65,7 +75,10 @@
       ];
       var tableHeaders = ['First', 'Last', 'Handle'];
       var betterTableContainerElement = $('#betterTable1');
-
+      var betterTable1 = new BetterTable(betterTableContainerElement, tableHeaders, tableData);
+      var betterTableContainerElement = $('#betterTable2');
+      var betterTable1 = new BetterTable(betterTableContainerElement, tableHeaders, tableData);
+      var betterTableContainerElement = $('#betterTable3');
       var betterTable1 = new BetterTable(betterTableContainerElement, tableHeaders, tableData);
     </script>
   </body>

@@ -17,12 +17,16 @@ h1, h3 {
 
 /*----------------------------------------------------------------------------*/
 /* Fixed Header Container */
-.fixed-header-container table {
-  table-layout: fixed;
-  width: auto;
-  margin-bottom: 0; }
-  .fixed-header-container table th {
-    overflow: hidden; }
+.fixed-header-container {
+  width: 100%;
+  flex: 1 0 auto; }
+  .fixed-header-container table {
+    table-layout: fixed;
+    width: auto;
+    margin-bottom: 0;
+    position: absolute; }
+    .fixed-header-container table th {
+      overflow: hidden; }
 
 /*----------------------------------------------------------------------------*/
 /* Table Container */
