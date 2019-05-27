@@ -16,18 +16,27 @@ function BetterTable(containerElement, tableHeaders, tableData) {
 
 BetterTable.prototype.initialize = function() {
   this.rootElement = $('<div class="better-table"></div>');
+  this.headerContainerElement = $('<div class="header-container"></div>');
   this.fixedHeaderContainerElement = $('<div class="fixed-header-container"></div>');
+  this.headerSpacerElement = $('<div class="header-spacer"></div>');
   this.tableContainerElement = $('<div class="table-container"></div>');
 
   this.table = new Table(this.tableContainerElement, this.tableData);
 
   var tableCellMeasureElements = this.table.getRowMeasurerElements(0);
-  console.log(tableCellMeasureElements);
   this.fixedHeader = new FixedHeader(this.fixedHeaderContainerElement, tableCellMeasureElements, this.tableHeaders);
 
-  this.fixedHeaderContainerElement.appendTo(this.rootElement);
+  this.tableContainerElement.scroll(this.onTableScroll.bind(this));
+
+  this.fixedHeaderContainerElement.appendTo(this.headerContainerElement);
+  this.headerSpacerElement.appendTo(this.headerContainerElement);
+  this.headerContainerElement.appendTo(this.rootElement);
   this.tableContainerElement.appendTo(this.rootElement);
   this.rootElement.appendTo(this.containerElement);
+}
+
+BetterTable.prototype.onTableScroll = function(event) {
+  this.fixedHeaderContainerElement.scrollLeft(event.target.scrollLeft);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -43,13 +52,13 @@ function FixedHeader(containerElement, colHeaderSizerElements, colHeaderNames) {
 }
 
 FixedHeader.prototype.initialize = function() {
-  this.rootElement = $(
-    '<table class="fixed-header">' +
-    '  <thead>' +
-    '    <tr></tr>' +
-    '  </thead>' +
-    '</div>'
-  );
+  this.rootElement = $(`
+    <table class="fixed-header">
+      <thead>
+        <tr></tr>
+      </thead>
+    </table>
+  `);
 
   // Create the ColHeaders.
   this.colHeaders = [];
@@ -64,19 +73,30 @@ FixedHeader.prototype.initialize = function() {
     this.update();
     this.containerElement.height(this.rootElement.height());
     this.rootElement.css('visibility', 'visible');
+    //this.setBorderRightWidth(12);
   }.bind(this), 50);
 
-  $(window).resize(function() {
-    setTimeout(function() {
-      this.update();
-    }.bind(this), 50);
-  }.bind(this));
+  $(window).resize(this.update.bind(this));
 }
 
-FixedHeader.prototype.update = function() {
+FixedHeader.prototype.updateWidths = function() {
   for (var i = 0; i < this.colHeaders.length; i++) {
     this.colHeaders[i].updateWidth();
   }
+}
+
+FixedHeader.prototype.update = function() {
+  this.updateWidths();
+  setTimeout(function() {
+    this.updateWidths();
+    setTimeout(function() {
+      this.updateWidths();
+    }.bind(this), 50);
+  }.bind(this), 10);
+}
+
+FixedHeader.prototype.setBorderRightWidth = function(width) {
+  this.rootElement.css('border-right', `${width}px solid #eee`);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -185,6 +205,5 @@ ColHeader.prototype.initialize = function() {
 }
 
 ColHeader.prototype.updateWidth = function() {
-  console.log('Width: ' + this.sizerReferenceElement.width());
   this.sizerElement.css('width', this.sizerReferenceElement.width());
 }
