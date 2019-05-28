@@ -19,7 +19,13 @@ BetterTable.prototype.initialize = function() {
   this.headerContainerElement = $('<div class="header-container"></div>');
   this.fixedHeaderContainerElement = $('<div class="fixed-header-container"></div>');
   this.headerSpacerElement = $('<div class="header-spacer"></div>');
+  this.tableContainerContainerElement = $('<div class="table-container-container"></div>');
   this.tableContainerElement = $('<div class="table-container"></div>');
+
+  // BORDERS
+  this.leftBorderElement = $('<div class="left-border"></div>');
+  this.bottomBorderElement = $('<div class="bottom-border"></div>');
+  this.rightBorderElement = $('<div class="right-border"></div>');
 
   this.table = new Table(this.tableContainerElement, this.tableData);
 
@@ -31,12 +37,32 @@ BetterTable.prototype.initialize = function() {
   this.fixedHeaderContainerElement.appendTo(this.headerContainerElement);
   this.headerSpacerElement.appendTo(this.headerContainerElement);
   this.headerContainerElement.appendTo(this.rootElement);
-  this.tableContainerElement.appendTo(this.rootElement);
+
+  this.tableContainerElement.appendTo(this.tableContainerContainerElement);
+  this.rightBorderElement.appendTo(this.tableContainerContainerElement);
+  this.tableContainerContainerElement.appendTo(this.rootElement);
+
+  this.leftBorderElement.appendTo(this.rootElement);
+  this.bottomBorderElement.appendTo(this.rootElement);
+
   this.rootElement.appendTo(this.containerElement);
+
+  this.resizeHeaderSpacer();
 }
 
 BetterTable.prototype.onTableScroll = function(event) {
   this.fixedHeaderContainerElement.scrollLeft(event.target.scrollLeft);
+}
+
+BetterTable.prototype.resizeHeaderSpacer = function() {
+  const width = this.getBodyScrollbarWidth();
+  console.log(width);
+  this.headerSpacerElement.css('flex-basis', width);
+}
+
+BetterTable.prototype.getBodyScrollbarWidth = function() {
+  const tableContainerHTMLElement = this.tableContainerElement.get()[0];
+  return tableContainerHTMLElement.offsetWidth - tableContainerHTMLElement.clientWidth;
 }
 
 /*----------------------------------------------------------------------------*/

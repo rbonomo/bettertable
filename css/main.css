@@ -47,10 +47,10 @@ h1 {
       padding: .25rem; }
 
 #betterTable1 .fixed-header th {
-  border-bottom: 6px solid #666; }
+  border-bottom: 6px solid #c6c6c6; }
 
 #betterTable1 th:first-child, #betterTable1 td:first-child {
-  border-right: 6px solid #666; }
+  border-right: 6px solid #c6c6c6; }
 
 #betterTable3 .fixed-header th {
   border-bottom: 6px solid #666; }
