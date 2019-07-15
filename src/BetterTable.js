@@ -1,6 +1,5 @@
 import Component from '/src/Component.js';
 import Table from '/src/Table.js';
-import FixedTableHeader from '/src/FixedTableHeader.js';
 
 class BetterTable extends Component {
     constructor(options) {
