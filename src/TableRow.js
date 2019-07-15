@@ -25,7 +25,7 @@ class Row extends Component {
     }
 
     getHeight() {
-        return this.tableCells[0].getHeight();
+        return Math.max(...this.tableCells.map(tableCell => tableCell.getHeight()));
     }
 
     setHeight(height) {

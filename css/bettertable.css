@@ -62,6 +62,17 @@ h1, h3 {
     flex: 1 0 auto;
     height: 0;
     overflow: hidden; }
+    .better-table .table-container-container > div[class$="-border"] {
+      background: #c6c6c6;
+      position: absolute; }
+      .better-table .table-container-container > div[class$="-border"][class^="right"] {
+        height: 100%;
+        width: 1px;
+        right: 0; }
+      .better-table .table-container-container > div[class$="-border"][class^="bottom"] {
+        height: 1px;
+        width: 100%;
+        bottom: 0; }
     .better-table .table-container-container .fixed-table-columns-container-container {
       display: flex;
       flex-direction: column; }
@@ -71,7 +82,6 @@ h1, h3 {
       .better-table .table-container-container .fixed-table-columns-container-container .fixed-table-columns-container-spacer {
         flex-shrink: 0;
         flex-grow: 0;
-        border-top: 1px solid #c6c6c6;
         background: #c6c6c6; }
     .better-table .table-container-container .table-container {
       flex-grow: 1; }

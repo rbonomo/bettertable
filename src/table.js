@@ -1,6 +1,7 @@
 import Component from '/src/Component.js';
 import TableRow from '/src/TableRow.js';
 import TableCell from '/src/TableCell.js';
+import Column from '/src/Column.js';
 
 class Table extends Component {
     constructor(options) {
@@ -15,12 +16,26 @@ class Table extends Component {
         this.tableBodyElement = this.element.querySelector('tbody');
 
         if (this.options.tableRows !== undefined) this.setTableRows(this.options.tableRows);
+        if (this.options.columns !== undefined) this.setColumns(this.options.columns);
         if (this.options.tableData !== undefined) this.load(this.options.tableData);
+    }
+
+    getRow(index) {
+        return this.rows[index];
+    }
+
+    getColumn(index) {
+        return this.columns[index];
+    }
+
+    setColumns(columns) {
+        this.columns = columns;
     }
 
     setTableRows(tableRows) {
         this.tableRows = tableRows;
-        this.tableRows.forEach(tableRow => this.element.appendChild(tableRow));
+        this.rows = tableRows;
+        this.tableRows.forEach(tableRow => this.tableBodyElement.appendChild(tableRow.element));
     }
 
     getColumnWidth(index) {
@@ -42,13 +57,21 @@ class Table extends Component {
     }
 
     load(tableData) {
-        this.tableRows = tableData.map(tableRowData => new TableRow({
-            tableCells: tableRowData.map(tableCellData => new TableCell({
-                render: tableCellData
-            }))
-        }));
+        const tableRows = [];
+        const columns = [];
 
-        this.tableRows.forEach(tableRow => this.tableBodyElement.appendChild(tableRow.element));
+        tableData.forEach(tableRowData => {
+            const tableCells = tableRowData.map(tableCellData => new TableCell({ render: tableCellData }));
+            tableRows.push(new TableRow({ tableCells }));
+        });
+        tableRows[0].tableCells.forEach((tableCell, index) => {
+            columns.push(new Column({
+                tableCells: tableRows.map(tableRow => tableRow.tableCells[index])
+            }));
+        });
+
+        this.setTableRows(tableRows);
+        this.setColumns(columns);
     }
 }
 

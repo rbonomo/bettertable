@@ -93,6 +93,23 @@ h1, h3 {
     height: 0;
     overflow: hidden;
 
+
+    &>div[class$="-border"] {
+      background: #c6c6c6;
+      position: absolute;
+
+      &[class^="right"] {
+        height: 100%;
+        width: 1px;
+        right: 0;
+      }
+      &[class^="bottom"] {
+        height: 1px;
+        width: 100%;
+        bottom: 0;
+      }
+    }
+
     .fixed-table-columns-container-container {
       display: flex;
       flex-direction: column;
@@ -105,7 +122,6 @@ h1, h3 {
       .fixed-table-columns-container-spacer {
         flex-shrink: 0;
         flex-grow: 0;
-        border-top: 1px solid #c6c6c6;
         background: #c6c6c6;
       }
     }

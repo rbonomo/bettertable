@@ -2,7 +2,7 @@ import BetterTable from '../src/BetterTable.js';
 import Column from '../src/Column.js';
 
 var tableData = [
-    ['1', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo'],
+    ['1', 'Bonomo', 'Morbi gravida neque et orci vulputate maximus. Fusce porttitor malesuada volutpat. Pellentesque', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo'],
     ['2', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo'],
     ['3', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo'],
     ['4', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo', 'Ryan', 'Bonomo', 'rbonomo'],

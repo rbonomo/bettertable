@@ -18,6 +18,7 @@ class BetterTable extends Component {
                 </div>
                 <div class="table-container-container">
                     <div class="right-border"></div>
+                    <div class="bottom-border"></div>
                     <div class="fixed-table-columns-container-container">
                         <div class="fixed-table-columns-container"></div>
                         <div class="fixed-table-columns-container-spacer"></div>
@@ -36,40 +37,37 @@ class BetterTable extends Component {
 
         this.tableContainerElement.addEventListener('scroll', this.handleTableScroll.bind(this));
 
-        
-
-        
-
-
         this.fixedColumns = this.options.columns.filter((column, index, columns) => // Set fixed columns => get each column in columns
             column.isFixed && // that is fixed and
             columns.slice(0, index).every(column => column.isFixed) // each previous column is fixed.
         );
-        this.fixedTableColumnHeaders = new FixedTableHeader({
-            table: this,
-            tableHeaderCellRenders: this.fixedColumns.map(column => column.headerRender)
+        this.fixedTableColumnHeaders = new Table({
+            tableData: [this.fixedColumns.map(column => column.headerRender)]
         });
 
         this.bodyColumns = this.options.columns.filter(column => !this.fixedColumns.includes(column));
-        this.fixedTableHeader = new FixedTableHeader({
-            table: this,
-            tableHeaderCellRenders: this.bodyColumns.map(column => column.headerRender)
+        this.fixedTableHeader = new Table({
+            tableData: [this.bodyColumns.map(column => column.headerRender)]
         });
         this.element.querySelector('.fixed-header-container').appendChild(this.fixedTableHeader.element);
 
-        this.fixedTableColumnsBody = new Table({ tableData: this.options.tableData.map(row => row.slice(0,1)) });
+        this.fixedTableColumnsBody = new Table({
+            tableData: this.options.tableData.map(row => row.slice(0,1))
+        });
         
         this.fixedTableColumnHeadersContainerElement.appendChild(this.fixedTableColumnHeaders.element);
         this.fixedTableColumnsContainerElement.appendChild(this.fixedTableColumnsBody.element);
 
 
-        this.table = new Table({ tableData: this.options.tableData.map(tableRow => tableRow.slice(this.fixedColumns.length, this.options.columns.length)) });
+        this.table = new Table({
+            tableData: this.options.tableData.map(tableRow => tableRow.slice(this.fixedColumns.length, this.options.columns.length))
+        });
         this.tableContainerElement.appendChild(this.table.element);
 
 
-        this.updateColumnWidths();
+        this.updateCellDimensions();
         this.updateHeaderCellHeights();
-        window.addEventListener('resize', this.updateColumnWidths.bind(this));
+        window.addEventListener('resize', this.updateCellDimensions.bind(this));
         window.addEventListener('resize', this.updateHeaderCellHeights.bind(this));
     }
 
@@ -110,27 +108,45 @@ class BetterTable extends Component {
         this.fixedTableColumnsContainerElement.scrollTop = event.target.scrollTop;
     }
 
-    updateColumnWidths() {
-        const _updateColumnWidths = () => {
-            this.columns.slice(1, this.options.columns.length).forEach((column, index) => {
-                if (this.table.getColumnWidth(index) < this.fixedTableHeader.getColumnWidth(index)) {
-                    this.table.setColumnWidth(index, this.fixedTableHeader.getColumnWidth(index));
-                } else {
-                    this.fixedTableHeader.setColumnWidth(index, this.table.getColumnWidth(index));
-                }
-            });
-        };
-        const _updateFixedColumnWidths = () => {
-            this.columns.slice(0, 1).forEach((column, index) => {
-                if (this.fixedTableColumnsBody.getColumnWidth(index) < this.fixedTableColumnHeaders.getColumnWidth(index)) {
-                    this.fixedTableColumnsBody.setColumnWidth(index, this.fixedTableColumnHeaders.getColumnWidth(index));
-                } else {
-                    this.fixedTableColumnHeaders.setColumnWidth(index, this.fixedTableColumnsBody.getColumnWidth(index));
-                }
-            });
-        };
-        setTimeout(_updateColumnWidths.bind(this), 5);
-        setTimeout(_updateFixedColumnWidths.bind(this), 5);
+    _fitTables(isXDirection, tableA, tableB) {
+        const key = isXDirection ? "columns" : "rows";
+
+        // Validation
+        const enumerableACount = tableA[key].length;
+        const enumerableBCount = tableB[key].length;
+        if (enumerableACount !== enumerableBCount) {
+            throw `fitTables(tableA, tableB) EXCEPTION:
+                    "tableA ${key} count must be equal to tableB ${key} count."`;
+        }
+
+        for (let i = 0; i < enumerableACount; i++) {
+            const enumerableA = isXDirection ? tableA.getColumn(i) : tableA.getRow(i);
+            const enumerableB = isXDirection ? tableB.getColumn(i) : tableB.getRow(i);
+            const enumerableASize = isXDirection ? enumerableA.getWidth() : enumerableA.getHeight();
+            const enumerableBSize = isXDirection ? enumerableB.getWidth() : enumerableB.getHeight();
+            if (enumerableASize < enumerableBSize) isXDirection ? enumerableA.setWidth(enumerableBSize) : enumerableA.setHeight(enumerableBSize);
+            else isXDirection ? enumerableB.setWidth(enumerableASize) : enumerableB.setHeight(enumerableASize);
+        }
+    }
+
+    fitTablesY(tableA, tableB) {
+        this._fitTables(0, tableA, tableB);
+    }
+
+    fitTablesX(tableA, tableB) {
+        this._fitTables(1, tableA, tableB);
+    }
+
+    fitTables(tableA, tableB) {
+        this._fitTables(1, tableA, tableB);
+        this._fitTables(0, tableA, tableB);
+    }
+
+    updateCellDimensions() {
+        setTimeout(() => this.fitTablesX(this.fixedTableColumnHeaders, this.fixedTableColumnsBody), 5);
+        setTimeout(() => this.fitTablesX(this.fixedTableHeader, this.table), 5);
+        setTimeout(() => this.fitTablesY(this.fixedTableColumnHeaders, this.fixedTableHeader), 5);
+        setTimeout(() => this.fitTablesY(this.fixedTableColumnsBody, this.table), 5);
     }
 
     updateHeaderCellHeights() {
