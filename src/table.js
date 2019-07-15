@@ -1,29 +1,55 @@
-import Row from './row.js';
+import Component from '/src/Component.js';
+import TableRow from '/src/TableRow.js';
+import TableCell from '/src/TableCell.js';
 
-function Table(containerElement, tableData) {
-    this.containerElement = containerElement;
-    this.tableData = tableData;
+class Table extends Component {
+    constructor(options) {
+        super(options);
 
-    this.rootElement = undefined;
-    this.rows = undefined;
+        this.element = $(`
+            <table>
+                <tbody></tbody>
+            </table>
+        `).get()[0];
 
-    this.initialize();
-}
+        this.tableBodyElement = this.element.querySelector('tbody');
 
-Table.prototype.initialize = function () {
-    this.rootElement = $('<table><tbody></tbody></table>');
-
-    this.rows = [];
-    for (var i = 0; i < this.tableData.length; i++) {
-        var row = new Row(this.rootElement, this.tableData[i]);
-        this.rows.push(row);
+        if (this.options.tableRows !== undefined) this.setTableRows(this.options.tableRows);
+        if (this.options.tableData !== undefined) this.load(this.options.tableData);
     }
 
-    this.rootElement.appendTo(this.containerElement);
-}
+    setTableRows(tableRows) {
+        this.tableRows = tableRows;
+        this.tableRows.forEach(tableRow => this.element.appendChild(tableRow));
+    }
 
-Table.prototype.getRowMeasurerElements = function (row) {
-    return this.rows[row].getCellMeasurerElements();
+    getColumnWidth(index) {
+        if (this.tableRows && this.tableRows.length > 0) {
+            return this.tableRows[0].getTableCellWidth(index);
+        }
+    }
+
+    setColumnWidth(index, width) {
+        this.tableRows.forEach(tableRow => tableRow.setTableCellWidth(index, width));
+    }
+
+    getRowHeight(index) {
+        return this.tableRows[index].getHeight();
+    }
+
+    setRowHeight(index, height) {
+        this.tableRows[index].setHeight(height);
+    }
+
+    load(tableData) {
+        this.tableRows = tableData.map(tableRowData => new TableRow({
+            tableCells: tableRowData.map(tableCellData => new TableCell({
+                render: tableCellData
+            }))
+        }));
+
+        this.tableRows.forEach(tableRow => this.tableBodyElement.appendChild(tableRow.element));
+    }
 }
 
 export default Table;
