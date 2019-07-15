@@ -1,5 +1,5 @@
-import Component from '/src/Component.js';
-import Table from '/src/Table.js';
+import Component from './Component.js';
+import Table from './Table.js';
 
 class BetterTable extends Component {
     constructor(options) {
@@ -8,7 +8,7 @@ class BetterTable extends Component {
         this.columns = this.options.columns;
         this.tableData = this.options.tableData;
 
-        this.element = $(`
+        this.element = document.createRange().createContextualFragment(`
             <div class="better-table">
                 <div class="header-container">
                     <div class="fixed-table-column-headers-container"></div>
@@ -25,7 +25,7 @@ class BetterTable extends Component {
                     <div class="table-container"></div>
                 </div>
             </div>
-        `).get()[0];
+        `);
 
         this.tableContainerElement = this.element.querySelector('.table-container');
         this.headerSpacerElement = this.element.querySelector('.header-spacer');

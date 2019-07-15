@@ -1,4 +1,4 @@
-import Primitive from '/src/Primitive.js';
+import Primitive from './Primitive.js';
 
 class Model extends Primitive {
     constructor(options) {

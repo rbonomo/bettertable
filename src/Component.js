@@ -1,4 +1,4 @@
-import Primitive from '/src/Primitive.js';
+import Primitive from './Primitive.js';
 
 class Component extends Primitive {
     constructor(options) {

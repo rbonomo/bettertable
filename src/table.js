@@ -1,17 +1,17 @@
-import Component from '/src/Component.js';
-import TableRow from '/src/TableRow.js';
-import TableCell from '/src/TableCell.js';
-import Column from '/src/Column.js';
+import Component from './Component.js';
+import TableRow from './TableRow.js';
+import TableCell from './TableCell.js';
+import Column from './Column.js';
 
 class Table extends Component {
     constructor(options) {
         super(options);
 
-        this.element = $(`
+        this.element = document.createRange().createContextualFragment(`
             <table>
                 <tbody></tbody>
             </table>
-        `).get()[0];
+        `);
 
         this.tableBodyElement = this.element.querySelector('tbody');
 

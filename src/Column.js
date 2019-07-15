@@ -1,4 +1,4 @@
-import Model from '/src/Model.js';
+import Model from './Model.js';
 
 class Column extends Model {
     constructor(options) {

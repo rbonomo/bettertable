@@ -1,4 +1,4 @@
-import Component from '/src/Component.js';
+import Component from './Component.js';
 
 class Row extends Component {
     constructor(options) {
